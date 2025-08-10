@@ -25,6 +25,8 @@ if ! command -v conda &>/dev/null; then
 
     echo 'export PATH="$HOME/miniconda3/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
+
+    export PATH="$HOME/miniconda3/bin:$PATH"
 else
     echo "[INFO] 检测到 conda,跳过安装"
 fi
@@ -46,14 +48,14 @@ conda activate $CONDA_ENV
 
 echo "[INFO] 安装依赖..."
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
-    protobuf==3.13.0 \
-    psutil==5.7.0 \
-    numpy==2.0.2 \
-    scipy==1.13.1 \
-    decorator==4.4.0 \
-    sympy==1.5.1 \
-    cffi==1.12.3 \
-    pyyaml==6.0.2 \
+    protobuf \
+    psutil \
+    numpy \
+    scipy \
+    decorator \
+    sympy \
+    cffi \
+    pyyaml \
     pathlib2
 
 echo "[INFO] Python 环境准备完成: $CONDA_ENV"
