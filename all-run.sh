@@ -86,6 +86,24 @@ if [ ! -f "$RUN_DIR/op.cfg" ]; then
 fi
 
 # ========= 3. 配置 Ascend 环境 =========
+# 目标文件路径
+TARGET_FILE="$TOOLKIT_ROOT/Ascend/ascend-toolkit/latest/x86_64-linux/bin/setenv.bash"
+if [ ! -f "$TARGET_FILE" ]; then
+    echo "[ERROR] 找不到目标文件: $TARGET_FILE"
+    exit 1
+fi
+# 修改脚本
+chmod u+w "$TARGET_FILE"
+chmod u+x "$TARGET_FILE"
+cat > "$TARGET_FILE" << 'EOF'
+source $TOOLKIT_ROOT/Ascend/ascend-toolkit/5.20.t6.2.b060/x86_64-linux/compiler/bin/setenv.bash
+source $TOOLKIT_ROOT/Ascend/ascend-toolkit/5.20.t6.2.b060/x86_64-linux/runtime/bin/setenv.bash
+source $TOOLKIT_ROOT/Ascend/ascend-toolkit/5.20.t6.2.b060/x86_64-linux/opp/bin/setenv.bash
+source $TOOLKIT_ROOT/Ascend/ascend-toolkit/5.20.t6.2.b060/x86_64-linux/toolkit/bin/setenv.bash
+EOF
+
+echo "[INFO] 修改完成: $TARGET_FILE"
+
 echo "[INFO] 配置 Ascend 工具环境..."
 export BATCH_MODE=1
 set +e # 防止配置环境以外退出
